@@ -1,0 +1,5 @@
+{
+  "name": "ActivityTrack - Daily Performance Companion",
+  "description": "A high-performance activity tracker for fitness, habits, and daily tasks with local persistence and real-time dashboard analytics.",
+  "requestFramePermissions": []
+}
