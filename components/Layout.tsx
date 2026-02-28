@@ -1,16 +1,18 @@
 
 import React from 'react';
 import { NAV_ITEMS } from '../constants';
-import { AppView } from '../types';
+import { AppView, User } from '../types';
 
 interface LayoutProps {
   activeView: AppView;
   onNavigate: (view: AppView) => void;
   children: React.ReactNode;
   onAddClick: () => void;
+  user: User | null;
+  onLogout: () => void;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ activeView, onNavigate, children, onAddClick }) => {
+export const Layout: React.FC<LayoutProps> = ({ activeView, onNavigate, children, onAddClick, user, onLogout }) => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-slate-50">
       {/* Sidebar Navigation */}
@@ -40,26 +42,35 @@ export const Layout: React.FC<LayoutProps> = ({ activeView, onNavigate, children
           ))}
         </nav>
 
-        <div className="p-4 mt-auto">
+        <div className="p-4 mt-auto space-y-2">
           <button 
             onClick={onAddClick}
             className="w-full bg-white text-slate-900 font-bold py-3 rounded-xl shadow-md hover:bg-slate-100 transition-colors flex items-center justify-center gap-2"
           >
             <span className="text-xl">+</span> Log Activity
           </button>
+          
+          <button 
+            onClick={onLogout}
+            className="w-full bg-slate-800 text-slate-400 font-bold py-3 rounded-xl hover:bg-red-900/20 hover:text-red-400 transition-all flex items-center justify-center gap-2 text-sm"
+          >
+            <span>🚪</span> Logout
+          </button>
         </div>
 
-        <div className="p-4 border-t border-slate-800">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold border border-blue-500/30">
-              JD
-            </div>
-            <div className="text-xs truncate">
-              <p className="text-white font-semibold">Jane Doe</p>
-              <p className="text-slate-500">Premium Member</p>
+        {user && (
+          <div className="p-4 border-t border-slate-800">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold border border-blue-500/30">
+                {user.name.substring(0, 2).toUpperCase()}
+              </div>
+              <div className="text-xs truncate">
+                <p className="text-white font-semibold">{user.name}</p>
+                <p className="text-slate-500">Premium Member</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </aside>
 
       {/* Main Content */}

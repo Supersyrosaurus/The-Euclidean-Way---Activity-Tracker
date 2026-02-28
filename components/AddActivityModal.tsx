@@ -17,6 +17,7 @@ export const AddActivityModal: React.FC<AddActivityModalProps> = ({ onClose, onS
       case 'fitness': return 'minutes';
       case 'habit': return 'count';
       case 'task': return 'count';
+      case 'steps': return 'steps';
       default: return '';
     }
   };
@@ -45,17 +46,17 @@ export const AddActivityModal: React.FC<AddActivityModalProps> = ({ onClose, onS
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Category</label>
-              <div className="grid grid-cols-3 gap-3">
-                {(['fitness', 'habit', 'task'] as ActivityType[]).map(t => (
+              <div className="grid grid-cols-4 gap-2">
+                {(['fitness', 'habit', 'task', 'steps'] as ActivityType[]).map(t => (
                   <button
                     key={t}
                     type="button"
                     onClick={() => setType(t)}
-                    className={`py-3 rounded-2xl border-2 transition-all font-bold text-xs capitalize ${
+                    className={`py-3 rounded-2xl border-2 transition-all font-bold text-[10px] capitalize ${
                       type === t ? 'border-blue-600 bg-blue-50 text-blue-600' : 'border-slate-100 text-slate-400 hover:border-slate-200'
                     }`}
                   >
-                    {t === 'fitness' ? '🏃' : t === 'habit' ? '💎' : '📝'}<br/>{t}
+                    {t === 'fitness' ? '🏃' : t === 'habit' ? '💎' : t === 'task' ? '📝' : '👟'}<br/>{t}
                   </button>
                 ))}
               </div>

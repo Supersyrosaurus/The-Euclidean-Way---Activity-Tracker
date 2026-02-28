@@ -20,14 +20,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ activities, goals }) => {
   const fitnessValue = getStatsByType('fitness');
   const habitValue = getStatsByType('habit');
   const taskValue = getStatsByType('task');
+  const caloriesValue = todayActivities.reduce((acc, curr) => acc + (curr.caloriesBurned || 0), 0);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       {/* Welcome Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black text-slate-900">Good Day, Jane</h1>
-          <p className="text-slate-500">Here's what's happening with your activities today.</p>
+          <h1 className="text-3xl font-black text-slate-900">Activity Overview</h1>
+          <p className="text-slate-500">Track your daily performance and health metrics.</p>
         </div>
         <div className="text-sm font-medium text-slate-400">
           {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
@@ -35,17 +36,29 @@ export const Dashboard: React.FC<DashboardProps> = ({ activities, goals }) => {
       </div>
 
       {/* Quick Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
           <div className="flex items-center gap-3 mb-4">
             <span className="p-2 bg-orange-100 text-orange-600 rounded-xl text-lg">🔥</span>
-            <h3 className="font-bold text-slate-700">Fitness</h3>
+            <h3 className="font-bold text-slate-700">Calories</h3>
           </div>
           <div className="flex items-baseline gap-1">
-            <span className="text-4xl font-black text-slate-900">{fitnessValue}</span>
-            <span className="text-slate-400 font-medium">min</span>
+            <span className="text-4xl font-black text-slate-900">{caloriesValue}</span>
+            <span className="text-slate-400 font-medium">kcal</span>
           </div>
-          <p className="text-xs text-slate-400 mt-2">Active movement today</p>
+          <p className="text-xs text-slate-400 mt-2">Burned today</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="p-2 bg-blue-100 text-blue-600 rounded-xl text-lg">👟</span>
+            <h3 className="font-bold text-slate-700">Steps</h3>
+          </div>
+          <div className="flex items-baseline gap-1">
+            <span className="text-4xl font-black text-slate-900">0</span>
+            <span className="text-slate-400 font-medium">steps</span>
+          </div>
+          <p className="text-xs text-slate-400 mt-2">Daily movement</p>
         </div>
 
         <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
@@ -62,14 +75,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ activities, goals }) => {
 
         <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
           <div className="flex items-center gap-3 mb-4">
-            <span className="p-2 bg-blue-100 text-blue-600 rounded-xl text-lg">✅</span>
+            <span className="p-2 bg-indigo-100 text-indigo-600 rounded-xl text-lg">✅</span>
             <h3 className="font-bold text-slate-700">Tasks</h3>
           </div>
           <div className="flex items-baseline gap-1">
             <span className="text-4xl font-black text-slate-900">{taskValue}</span>
             <span className="text-slate-400 font-medium">done</span>
           </div>
-          <p className="text-xs text-slate-400 mt-2">Check them off the list</p>
+          <p className="text-xs text-slate-400 mt-2">Check them off</p>
         </div>
       </div>
 
